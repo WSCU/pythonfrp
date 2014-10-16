@@ -1,6 +1,6 @@
-from Signal import *
-from StaticNumerics import *
-from Types import *
+from . Signal import *
+from . StaticNumerics import *
+from . Types import *
 import math
 
 """
@@ -24,6 +24,7 @@ figure out pydoc vs developer notes/comments
 
 infiniteDur = 1000000
 
+
 class Interp:
     """
     Base Interpolation Class
@@ -34,7 +35,7 @@ class Interp:
         self.interpolant = None
         self._type = interpableType
     def __add__(self, x):
-    	"""
+        """
     	Infix (+) operator
     	Concat two interps together using an InterpNext object
     	x = InterpAt(p1)
@@ -133,7 +134,7 @@ class InterpCycle(Interp):
     Follow a path repeatedly starting at the first point
     """
     def __init__(self, n, i):
-    	"""
+        """
     	constructor
     	n: a point in the interpolation path
     	i: a point in the interpolation path
@@ -151,7 +152,7 @@ class InterpRev(Interp):
     An Interp that goes backwards along path
     """
     def __init__(self, i):
-    	"""
+        """
     	constructor
     	"""
         Interp.__init__(self)
@@ -271,7 +272,7 @@ class RInterpRev:
     def __init__(self, prev, i):
         self.i = i.getInterpolant(prev)
         if self.i.delta is not None:
-            print "Cannot reverse an interpolant of moves"
+            print("Cannot reverse an interpolant of moves")
             exit()
         self.first = self.i.last
         self.last = self.i.first
@@ -320,6 +321,7 @@ def repeat(n, i):
 def forever(i):
     return repeat(-1, i)
 
+
 def lerpStatic(t, v1, v2):
     """
     Return the actual location along the current path (used as base case in RInterpTo)
@@ -331,7 +333,6 @@ def lerpStatic(t, v1, v2):
 # two interpolants:
 #  lerp(t, v1, v2) - linear interpolation
 #  interpolate(t, i) - use interpolation class
-
 
 
 def interpolateStatic(t, i):

@@ -1,16 +1,7 @@
-import Errors
-import Globals
-import sys
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
-
-# Signal Factory Class
-# Base Signal Factory class
-# extends to StateMachineF, LiftF, and Lift0F
-
-from Signal import *
-from Types import *
+from . import Errors
+from . import Globals
+from . Signal import *
+from . Types import *
 
 def maybeLift(x):
     t = type(x)
@@ -109,7 +100,7 @@ class SFact:
     def __or__(self, y):
         y = maybeLift(y)
         return LiftF("and", lambda x, y: x | y, [self, y])
-        
+
 #Creates a Lift Factory
 class LiftF(SFact):
     def __init__(self,name,f, args, types = [], outType = anyType):
@@ -137,14 +128,14 @@ class LiftF(SFact):
         return Lift(self.name,self.f, map(lambda x: x[0], ea)), self.outType
 
 class Lift0F(SFact):
-      def __init__(self, v, t):
-          SFact.__init__(self)
-          self.outType = t
-          self.name = "Lift0"
-          self.v = v
-      def start(self, expectedType = anyType, obj = "ProxyObject"):
-          checkType(obj, self, self.outType, expectedType)
-          return Lift0(self.v), self.outType
+    def __init__(self, v, t):
+        SFact.__init__(self)
+        self.outType = t
+        self.name = "Lift0"
+        self.v = v
+    def start(self, expectedType = anyType, obj = "ProxyObject"):
+        checkType(obj, self, self.outType, expectedType)
+        return Lift0(self.v), self.outType
 
 #Creates a CachedValue factory
 class CachedValueF(SFact):

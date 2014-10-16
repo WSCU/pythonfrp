@@ -1,6 +1,6 @@
-import Globals
-import Errors
-from Types import signalType, eventValueType
+from . import Globals
+from . import Errors
+from . Types import signalType, eventValueType
 
 class EventValue:
     def __init__(self, value = None):
@@ -24,7 +24,7 @@ noEvent = EventValue()
 
 class Signal:
     def __init__(self):
-	self._type = signalType
+        self._type = signalType
 
 class Lift0(Signal):
     def __init__(self, v):
@@ -35,7 +35,7 @@ class Lift0(Signal):
 
 class Lift(Signal):
     def __init__(self,name, f, args):
-    	Signal.__init__(self)
+        Signal.__init__(self)
         self.f = f
         self.name = name
         self.args=args
@@ -79,11 +79,7 @@ class StateMachine(Signal):
         if self.time is not Globals.currentTime:
             self.f(self)
             self.time = Globals.currentTime
-        return self.value
-    def __rmul__(self, y): # JP is confused
-        y = maybeLift(y)
-        print "rmul in state machine... whats happening to me???"
-        return LiftF("mul", lambda x,y: y*x, [self.state, y])
+        return self.i
 
 class Observer(Signal):
     def __init__(self, f):

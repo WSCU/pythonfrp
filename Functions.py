@@ -1,12 +1,11 @@
 #Collection of useful and necessary functions used in the Reactive Engine.
-from Signal import *
-from Factory import *
-from StaticNumerics import zero
-from Errors import *
-import World
-import Proxy
-
-import Globals
+from . Signal import *
+from . Factory import *
+from . StaticNumerics import zero
+from . Errors import *
+from . import World
+from . import Proxy
+from . import Globals
 
 def now(s):
     if isinstance(s, ObserverF):
@@ -38,7 +37,7 @@ def deriv(sig, init = zero):
         sm.first = True
     def thunk(sm):
         i = sm.i.now()
-        print str(i)
+        print(str(i))
         if not sm.first:
             sm.value = (i - sm.previous) * (1/Globals.dt)
         else:

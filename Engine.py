@@ -1,12 +1,7 @@
-import unittest
-import sched, time
-#from StateMachine import *
-from Externals import initEvents, pollGUI
-from Signal import *
-from Functions import *
-import World
-import Globals
-from direct.task import Task
+from . Signal import *
+from . Functions import *
+from . import Globals
+
 
 def heartBeat(ct, events):
     #print "objects " + str(len(Globals.worldObjects))
@@ -26,10 +21,10 @@ def heartBeat(ct, events):
         #print("Updating object: " + repr(worldObject))
         #print repr(worldObject)
         reactions.extend(worldObject._update())
-    for f in Globals.thunks:
-        f()
-    for r in reactions:
-        r.react()
+    for thunk in Globals.thunks:
+        thunk()
+    for reaction in reactions:
+        reaction.react()
     for obj in Globals.newObjects:
         #print("Adding object: " + repr(obj))
         Globals.worldObjects.append(obj)
@@ -41,7 +36,7 @@ def heartBeat(ct, events):
         for m in Globals.worldObjects:
             if m is not World.world and m is not World.camera:
                 exit(m)
-        Globals.nextNE2dY = .95         # Positioning for 2-D controls - old controls should be gone
+        Globals.nextNE2dY = .95 # Positioning for 2-D controls - old controls should be gone
         Globals.nextNW2dY = .95
         Proxy.clearReactions(World.world)
         Proxy.clearReactions(World.camera)
@@ -66,6 +61,7 @@ def engine(ct):
     initEvents()
     taskMgr.add(stepTask, 'PandaClock')
     run()
+
 def stepTask(task):
     heartBeat(task.time, Globals.newEvents) # The task contains the elapsed time
     return Task.cont

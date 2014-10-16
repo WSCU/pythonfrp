@@ -1,8 +1,8 @@
 import sys
-import Signal
 
 def checkEvent(evt, context):
-    if not isinstance(evt, Signal.EventValue):
+    from . Signal import EventValue
+    if not isinstance(evt, EventValue):
         print("Error: " + str(evt) + " is not an event value in " + context)
         sys.exit()
     return

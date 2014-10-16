@@ -4,8 +4,7 @@ This handles the typing of signal functions
 Composite types such as P2, P3, and HPR are serialized as numbers separated by commas.
 This parses those numbers.
 """
-import Errors
-
+from . import Errors
 from types import *
 
 # Every built-in type has a python-defined type
@@ -29,13 +28,13 @@ class Ptype:
 
     def encode(self, x):
         if self.encoder is None:
-            print "No encoder for type " + str(self)
+            print("No encoder for type " + str(self))
             return None
         return self.encoder(x)
 
     def decode(self, x):
         if self.decoder is None:
-            print "No decoder for type " + str(self)
+            print("No decoder for type " + str(self))
             return None
         return self.decoder(x)
 
@@ -52,9 +51,9 @@ def addCheck(self):
             if expectedArgCount(self.args, 2) and self.types[0].includes(self.types[1]):
                 return True
             else:
-                print "Tried to add/subtract incompatible types"
+                print("Tried to add/subtract incompatible types")
         else:
-            print "Non Addable Type: " + str(self.outType)
+            print("Non Addable Type: " + str(self.outType))
         return False
     return True
 
@@ -93,7 +92,7 @@ def checkType(obj, attr, value, expected):
     else:
         name = repr(obj)
     Errors.typeError(expected, got, name, attr)
-    
+
 
 #  Predefined types used elsewhere
 anyType = Ptype("Any", addable = True)
@@ -115,6 +114,7 @@ eventValueType = Ptype("EventValue")
 listType = Ptype("listType")
 soundType = Ptype("sound")
 noneType = Ptype("None")
+TupleType = Ptype("Tuple")
 
 '''  Keeping just in case
 numType = ptype("Number")

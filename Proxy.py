@@ -1,8 +1,8 @@
-import Globals
-from Factory import *
-from Types import proxyType
-import Errors
-import Functions
+from . import Globals
+from . Factory import *
+from . Types import proxyType
+from . import Errors
+from . import Functions
 
 class Reaction:
     def __init__(self, fn, m, v):
@@ -48,7 +48,7 @@ class Proxy:
     def _initialize(self):
         for k, v in self._updateSignals.items():
             # print("Object: " + self._name + " is initializing field: " + k + " to " + str(v))
-            if self._types.has_key(k):
+            if k in self._types:
                 ty = self._types[k]
             else:
                 ty = anyType
