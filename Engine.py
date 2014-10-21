@@ -1,7 +1,6 @@
 from . Signal import *
 from . Functions import *
 from . import Globals
-from . import Proxy
 
 def heartBeat(ct, events):
     #print "objects " + str(len(Globals.worldObjects))
