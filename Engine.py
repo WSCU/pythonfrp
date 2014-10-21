@@ -2,7 +2,7 @@ from . Signal import *
 from . Functions import *
 from . import Globals
 
-def heartBeat(ct, events):
+def heartbeat(ct, events):
     #print "objects " + str(len(Globals.worldObjects))
     Globals.dt = ct - Globals.currentTime
     Globals.currentTime = ct
@@ -34,22 +34,27 @@ def heartBeat(ct, events):
             exit(m)
         Globals.resetFlag()
         Globals.resetFlag = None
-#will need to check the proxy module to find the right name for this initialize method
-#make an initialize method that clears out all the variables and resets the clock
+
+
 def initialize(ct):
+    """
+    This funciton needs some work.
+    will need to check the proxy module to find the right name for this initialize method
+    make an initialize method that clears out all the variables and resets the clock
+    """
     Globals.thunks = []
     Globals.currentTime = 0 #Not sure if this should be 0 or CT
     Globals.newModels = []
     Globals.worldObjects = {}
     Globals.events = []
 
+
 def engine(ct):
-    #Initialize all signals (signalF.start)
-    #set the time to 0
-    #get events and clear thunks
     Globals.currentTime = ct
+    while True:
+        heartbeat(ct, None)
+        ct += ct
 
-def stepTask(task):
-    heartBeat(task.time, Globals.newEvents) # The task contains the elapsed time
-    return Task.cont
 
+def start():
+    engine(0)
