@@ -250,7 +250,7 @@ def once(e):
 
 # This event occurs whenever the behavior changes.  Value of the event is the
 # new value of the behavior
-def changes(b):
+def changes(e):
     def initChanges(sm):
         sm.value = noEvent
         sm.last = EventValue()  # This is any value tha is guaranteed not to be in the input

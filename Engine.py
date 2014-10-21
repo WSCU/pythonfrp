@@ -1,7 +1,7 @@
 from . Signal import *
 from . Functions import *
 from . import Globals
-
+from . import Proxy
 
 def heartBeat(ct, events):
     #print "objects " + str(len(Globals.worldObjects))
@@ -10,8 +10,6 @@ def heartBeat(ct, events):
     Globals.events = events
     Globals.newEvents = {}
     Globals.thunks = []
-
-    pollGUI()
 
     #print "time steps: "+repr(ct)
     #for event in events:
@@ -34,12 +32,7 @@ def heartBeat(ct, events):
         obj._initialize()
     if Globals.resetFlag is not None:
         for m in Globals.worldObjects:
-            if m is not World.world and m is not World.camera:
-                exit(m)
-        Globals.nextNE2dY = .95 # Positioning for 2-D controls - old controls should be gone
-        Globals.nextNW2dY = .95
-        Proxy.clearReactions(World.world)
-        Proxy.clearReactions(World.camera)
+            exit(m)
         Globals.resetFlag()
         Globals.resetFlag = None
 #will need to check the proxy module to find the right name for this initialize method
@@ -50,17 +43,12 @@ def initialize(ct):
     Globals.newModels = []
     Globals.worldObjects = {}
     Globals.events = []
-    Globals.panda3dCamera = camera #Panda3-D built in camera
-    Globals.world = world
 
 def engine(ct):
     #Initialize all signals (signalF.start)
     #set the time to 0
     #get events and clear thunks
     Globals.currentTime = ct
-    initEvents()
-    taskMgr.add(stepTask, 'PandaClock')
-    run()
 
 def stepTask(task):
     heartBeat(task.time, Globals.newEvents) # The task contains the elapsed time

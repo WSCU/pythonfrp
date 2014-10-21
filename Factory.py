@@ -144,7 +144,7 @@ class CachedValueF(SFact):
         self.outType = anyType
         self.i = i
     def start(self, expectedType = anyType, obj = "ProxyObject"):
-        return CachedValue(maybeLift(self.i)), self.outType
+        return CachedSignal(maybeLift(self.i)), self.outType
 
 #Creates a State Machine Factory
 class StateMachineF(SFact):
@@ -201,7 +201,7 @@ def var(init): #Actual variable signal
 def eventObserver(eName, eVal = None):
     def getEvent(ename):
 #        print "Observing " + eName
-        if Globals.events.has_key(ename):
+        if ename in ename:
 #            print "Event found:" + str(Globals.events[ename])
             return EventValue(Globals.events[ename]) if eVal is None else EventValue(eVal)
 #        print "No: " + str(noEvent)

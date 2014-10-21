@@ -1,5 +1,4 @@
 from . Signal import *
-from . StaticNumerics import *
 from . Types import *
 import math
 
@@ -347,5 +346,4 @@ def interpolateStatic(t, i):
     result = i1.interp(t)
     #print result
     return result
-
 
