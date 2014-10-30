@@ -11,8 +11,6 @@ import random
 import sys
 from . import Factory
 from . import Errors
-from . import Interp
-from . import Numerics
 from . Types import *
 
 # This is a where we park signal functions.
@@ -23,6 +21,7 @@ sCeiling = math.ceil
 sFloor   = math.floor
 cos = math.cos
 sin = math.sin
+
 def sFraction(x):
     return x - sFloor(x)
 
@@ -157,6 +156,7 @@ def subP2(a, b):
     return SP2(a.x-b.x, a.y-b.y)
 
 def scaleP2(s, a):
+    from . import Numerics
     return Numerics.P2(s * a.x, s * a.y)
 
 def absP2(a):
@@ -265,6 +265,7 @@ def addP3(a, p):
 def subP3(a, p):
     return SP3(a.x - p.x, a.y - p.y, a.z - p.z)
 def scaleP3(s, a):
+    from . import Numerics
     return Numerics.P3(a.x * s, a.y * s, a.z * s);
 def absP3(a):
     return math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);

@@ -29,7 +29,7 @@ def integralInternal(x):  # This reurns the special value Zero() at the initial 
     return StateMachineF(initIntegral, maybeLift(x), integralf)
 
 def integral(x, v0):
-    return integralInternal(x) + v0
+    return integralInternal(x) + maybeLift(v0)
 
 def deriv(sig, init = zero):
     def initDeriv(sm):

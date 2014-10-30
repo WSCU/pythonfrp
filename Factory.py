@@ -42,7 +42,7 @@ def lift(name, f, types = [], outType = anyType):
 
 class SFact:
     def __init__(self):
-    	self._type = signalFactoryType
+        self._type = signalFactoryType
     def __add__(self,y):
         y = maybeLift(y)
         return LiftF("add",lambda x,y:x+y, [self,y], types = [self.outType, y.outType], outType = self.outType)
@@ -121,11 +121,11 @@ class LiftF(SFact):
         addCheck(self)
         checkType(obj, self, self.outType, expectedType)
         Errors.checkNumArgs(len(self.types), argsLen, obj, self)
-        ea = map(lambda x: maybeLift(x).start(), self.args)
+        #list() call for pyhton 3 mapping support
+        ea = list(map(lambda x: maybeLift(x).start(), self.args))
         for i in range(len(self.types)):
-            #print str(ea[i][0]) + " " + str(ea[i][1])
             checkType(obj, self, ea[i][1], self.types[i])
-        return Lift(self.name,self.f, map(lambda x: x[0], ea)), self.outType
+        return Lift(self.name,self.f, list(map(lambda x: x[0], ea))), self.outType
 
 class Lift0F(SFact):
     def __init__(self, v, t):

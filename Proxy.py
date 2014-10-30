@@ -2,7 +2,6 @@ from . import Globals
 from . Factory import *
 from . Types import proxyType
 from . import Errors
-from . import Functions
 
 class Reaction:
     def __init__(self, fn, m, v):

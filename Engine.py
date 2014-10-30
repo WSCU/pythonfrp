@@ -36,14 +36,14 @@ def heartbeat(ct, events):
         Globals.resetFlag = None
 
 
-def initialize(ct):
+def initialize(ct = 0):
     """
     This funciton needs some work.
     will need to check the proxy module to find the right name for this initialize method
     make an initialize method that clears out all the variables and resets the clock
     """
     Globals.thunks = []
-    Globals.currentTime = 0 #Not sure if this should be 0 or CT
+    Globals.currentTime = ct
     Globals.newModels = []
     Globals.worldObjects = {}
     Globals.events = []
