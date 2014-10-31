@@ -14,7 +14,7 @@ class Printer(Proxy):
 
 def printupdate(proxy):
     for k, v in proxy._signals.items():
-        print (k + ": " + str(v.state))
+        print (k + ": " + str(v.now()))
 
 
 def printer(name = "printing object", **kwargs):

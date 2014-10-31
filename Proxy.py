@@ -42,7 +42,7 @@ class Proxy:
         try:
             return self._signals[name].now()
         except KeyError:
-            print( str(name) + " does not exist or has not been started in this Proxy " + repr(self))
+            print( str(name) + " does not exist or has not been started in this Proxy: " + repr(self))
 
     def _initialize(self):
         for k, v in self._updateSignals.items():
@@ -60,9 +60,6 @@ class Proxy:
             self._signals[k] = cache(sig)
         self._updateSignals = {}
 
-    def _updater(self):
-        self._updater(self)
-
     def _react(self, when, what):
         if self._alive:
             when = maybeLift(when)
@@ -76,7 +73,6 @@ class Proxy:
             self._1Reactions.append((when.start()[0], what))
 
     def _update(self):
-        #tempSigVals = {} Not sure what this is for - Lucas 5/22/14
         if self._alive:
             for k, v in self._signals.items():
                 #print("Objects: " + str(self) + " is updating: " + k)

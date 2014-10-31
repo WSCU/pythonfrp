@@ -16,7 +16,7 @@ def heartbeat(ct, events):
     reactions = []
     for worldObject in Globals.worldObjects:
         #print("Updating object: " + repr(worldObject))
-        #print repr(worldObject)
+        #print(repr(worldObject))
         reactions.extend(worldObject._update())
     for thunk in Globals.thunks:
         thunk()
@@ -49,12 +49,12 @@ def initialize(ct = 0):
     Globals.events = []
 
 
-def engine(ct):
+def engine(ct, tSteps):
     Globals.currentTime = ct
-    while True:
+    while ct < tSteps:
         heartbeat(ct, None)
-        ct += ct
+        ct += 1
 
 
-def start():
-    engine(0)
+def start(ct = 0, tSteps = 50):
+    engine(0, tSteps)

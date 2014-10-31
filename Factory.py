@@ -105,15 +105,16 @@ class SFact:
 class LiftF(SFact):
     def __init__(self,name,f, args, types = [], outType = anyType):
         SFact.__init__(self)
-        self.f=f
+        self.f = f
         self.types = types
         self.outType = outType
-        self.name=name
+        self.name = name
         self.args = args
 
-
     def __str__(self):
-        return "{0} - args: {1} - types: {2} - outType: {3}".format(str(self.name), map(str, self.args), map(str, self.types), str(self.outType))
+        return "{0} - args: {1} - types: {2} - outType: {3}".format(
+            str(self.name), map(str, self.args), map(str, self.types),
+            str(self.outType))
 
     def start(self, expectedType = anyType, obj = "ProxyObject"):
         self.args = list(self.args)
@@ -122,9 +123,13 @@ class LiftF(SFact):
         checkType(obj, self, self.outType, expectedType)
         Errors.checkNumArgs(len(self.types), argsLen, obj, self)
         #list() call for pyhton 3 mapping support
+        print("LiftF: " + str(self.args))
         ea = list(map(lambda x: maybeLift(x).start(), self.args))
+        print("LiftF 2: " + str(ea))
+        print("LiftF 3: " + str(ea[0][0].now()))
         for i in range(len(self.types)):
             checkType(obj, self, ea[i][1], self.types[i])
+        #Some where between here and the Lift const
         return Lift(self.name,self.f, list(map(lambda x: x[0], ea))), self.outType
 
 class Lift0F(SFact):

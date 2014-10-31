@@ -32,6 +32,8 @@ class Lift0(Signal):
         self.v = v
     def now(self):
         return self.v
+    def __str__(self):
+        return str(self.v)
 
 class Lift(Signal):
     def __init__(self,name, f, args):
@@ -39,10 +41,18 @@ class Lift(Signal):
         self.f = f
         self.name = name
         self.args=args
+        print("Lift const: " + str(self.args))
+        print("Lift const, arg0.now: " + repr(self.args[0].now()))
+        print("Lift const, arg1.now: " + repr(self.args[1].now()))
     def now(self):
-    	ea = map (lambda a: a.now() , self.args)
-        # print "eval " + self.name + " " + str(ea) + " = " + str(self.f(*ea))
-    	return self.f(*ea)
+        print("Lift, arg0.now: " + repr(self.args[0].now()))
+        print("Lift, arg1.now: " + repr(self.args[1].now()))
+        ea = list(map(lambda a: a.now() , self.args)) # Why is this giving me a Lift0
+        # for the frist argument instead of its value?
+        # Why is the value a Lift0
+        print("Lift: " + str(ea))
+        #print ("eval" + self.name + " " + str(ea) + " = " + str(self.f(*ea)))
+        return self.f(*ea)
 
 # Cached Signal that inherits Signal
 # Baisically is just a time stamp
@@ -74,12 +84,13 @@ class StateMachine(Signal):
         self.f = f
         self.i = i
         self.time = -1
+        self.value = self.i.now()
         s0(self)
     def now(self):
         if self.time is not Globals.currentTime:
             self.f(self)
             self.time = Globals.currentTime
-        return self.i
+        return self.value
 
 class Observer(Signal):
     def __init__(self, f):
