@@ -11,7 +11,6 @@ def updateWorld(self):
 
 
 class World(Proxy.Proxy):
-
     def __init__(self):
         Proxy.Proxy.__init__(self, "world", updateWorld, {"color": colorType, "gravity": p3Type})
         #self.color = gray # Set this in panda specific area
