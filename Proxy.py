@@ -1,6 +1,6 @@
 from . import Globals
 from . Factory import *
-from . Types import proxyType
+from . Types import proxyType, anyType
 from . import Errors
 
 class Reaction:

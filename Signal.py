@@ -87,6 +87,8 @@ class StateMachine(Signal):
         self.value = self.i.now()
         s0(self)
     def now(self):
+        #Caching the value
+        #We don't want to recalculate more than once each step
         if self.time is not Globals.currentTime:
             self.f(self)
             self.time = Globals.currentTime

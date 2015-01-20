@@ -1,31 +1,31 @@
 from . import Errors
 from . import Globals
 from . Signal import *
-from . Types import *
+from . import Types
 
 def maybeLift(x):
     t = type(x)
     if t is type(1):
-        return Lift0F(x, numType)
+        return Lift0F(x, Types.numType)
     if t is type(1.0):
-        return Lift0F(x, numType)
+        return Lift0F(x, Types.numType)
     if t is type(" "):
-        return Lift0F(x, stringType)
+        return Lift0F(x, Types.stringType)
     if t is type(True):
-        return Lift0F(x, boolType)
+        return Lift0F(x, Types.boolType)
     if t is type([]):
-        return Lift0F(x, listType)
+        return Lift0F(x, Types.listType)
     t = x._type
 
-    if t is signalFactoryType:
+    if t is Types.signalFactoryType:
         #print "if this is not happening we are in trouble: "+str(t)+" and: " +str(x.name)
         return x
-    if t is p3Type:
+    if t is Types.p3Type:
         return Lift0F(x, t)
     #print "Lifting: "+str(x)+" :: " +str(t)
     return Lift0F(x,t)
     #return x
-def lift(name, f, types = [], outType = anyType):
+def lift(name, f, types = [], outType = Types.anyType):
     def fn(*args):
         #print str(len(types)) + " " + str(len(args))
         Errors.checkNumArgs(len(types), len(args), "ProxyObject", name)
@@ -36,13 +36,13 @@ def lift(name, f, types = [], outType = anyType):
         if len(types) is not 0:
             for i in range(len(args)):
                 #print "checking " + repr(args[i]) + ' ' + repr(types[i])
-                checkType("ProxyObject", name, args[i], types[i])
+                Types.checkType("ProxyObject", name, args[i], types[i])
         return f(*args)
     return fn
 
 class SFact:
     def __init__(self):
-        self._type = signalFactoryType
+        self._type = Types.signalFactoryType
     def __add__(self,y):
         y = maybeLift(y)
         return LiftF("add",lambda x,y:x+y, [self,y], types = [self.outType, y.outType], outType = self.outType)
@@ -103,7 +103,7 @@ class SFact:
 
 #Creates a Lift Factory
 class LiftF(SFact):
-    def __init__(self,name,f, args, types = [], outType = anyType):
+    def __init__(self,name,f, args, types = [], outType = Types.anyType):
         SFact.__init__(self)
         self.f = f
         self.types = types
@@ -116,11 +116,11 @@ class LiftF(SFact):
             str(self.name), map(str, self.args), map(str, self.types),
             str(self.outType))
 
-    def start(self, expectedType = anyType, obj = "ProxyObject"):
+    def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
         self.args = list(self.args)
         argsLen = len(self.args)
-        addCheck(self)
-        checkType(obj, self, self.outType, expectedType)
+        Types.addCheck(self)
+        Types.checkType(obj, self, self.outType, expectedType)
         Errors.checkNumArgs(len(self.types), argsLen, obj, self)
         #list() call for pyhton 3 mapping support
         print("LiftF: " + str(self.args))
@@ -128,7 +128,7 @@ class LiftF(SFact):
         print("LiftF 2: " + str(ea))
         print("LiftF 3: " + str(ea[0][0].now()))
         for i in range(len(self.types)):
-            checkType(obj, self, ea[i][1], self.types[i])
+            Types.checkType(obj, self, ea[i][1], self.types[i])
         #Some where between here and the Lift const
         return Lift(self.name,self.f, list(map(lambda x: x[0], ea))), self.outType
 
@@ -138,17 +138,17 @@ class Lift0F(SFact):
         self.outType = t
         self.name = "Lift0"
         self.v = v
-    def start(self, expectedType = anyType, obj = "ProxyObject"):
-        checkType(obj, self, self.outType, expectedType)
+    def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
+        Types.checkType(obj, self, self.outType, expectedType)
         return Lift0(self.v), self.outType
 
 #Creates a CachedValue factory
 class CachedValueF(SFact):
     def __init__(self, i):
         SFact.__init__(self)
-        self.outType = anyType
+        self.outType = Types.anyType
         self.i = i
-    def start(self, expectedType = anyType, obj = "ProxyObject"):
+    def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
         return CachedSignal(maybeLift(self.i)), self.outType
 
 #Creates a State Machine Factory
@@ -156,24 +156,24 @@ class StateMachineF(SFact):
     def __init__(self, s0, i, f):
         SFact.__init__(self)
         self.state = s0
-        self.outType = anyType
+        self.outType = Types.anyType
         self.i = i
         self.name = "State Machine Factory"
         self.f = f
-    def start(self, expectedType = anyType, obj = "ProxyObject"):
+    def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
         #print "initilizing state Machine " + repr(self.i)
-        input = self.i.start(expectedType = anyType)[0]
+        input = self.i.start(expectedType = Types.anyType)[0]
         #print "state machine input: " + repr(input)
         return StateMachine(self.state, input, self.f), self.outType
 
 #Creates a Observer Factory
 class ObserverF(SFact):
-    def __init__(self, f, type = anyType):
+    def __init__(self, f, type = Types.anyType):
         SFact.__init__(self)
         self.f = f
         self.outType = type
         self.name = "ObserverF"
-    def start(self, expectedType = anyType, obj = "ProxyObject"):
+    def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
        # print "starting observer"
         ro =  Observer(self.f)
         ro.startTime = Globals.currentTime
@@ -185,8 +185,8 @@ class RVarF(SFact):
     def __init__(self, initValue):
         SFact.__init__(self)
         self.value = initValue
-        self.type = getPtype(initValue)
-    def start(self, expectedType = anyType, obj = "ProxyObject"):
+        self.type = Types.getPtype(initValue)
+    def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
         return Observer(lambda x:self.value), self.type
     def get(self):    #  Used inside reaction code
         return self.value

@@ -3,6 +3,7 @@ from . Signal import *
 from . Factory import *
 from . StaticNumerics import zero
 from . Errors import *
+from . Types import *
 from . import World
 from . import Proxy
 from . import Globals
