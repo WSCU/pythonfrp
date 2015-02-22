@@ -5,7 +5,8 @@ from . StaticNumerics import *
 from . import Numerics
 
 def updateWorld(self):
-    c = self._get("color")
+    pass
+    #c = self._get("color")
     #base.setBackgroundColor(c.r, c.g, c.b) # What is base?
     #Maybe set this in panda specific aswell?
 
