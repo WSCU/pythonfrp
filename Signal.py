@@ -41,12 +41,12 @@ class Lift(Signal):
         self.f = f
         self.name = name
         self.args=args
-        print("Lift const: " + str(self.args))
-        print("Lift const, arg0.now: " + repr(self.args[0].now()))
-        print("Lift const, arg1.now: " + repr(self.args[1].now()))
+        #print("Lift const: " + str(self.args))
+        #print("Lift const, arg0.now: " + repr(self.args[0].now()))
+        #print("Lift const, arg1.now: " + repr(self.args[1].now()))
     def now(self):
-        print("Lift, arg0.now: " + repr(self.args[0].now()))
-        print("Lift, arg1.now: " + repr(self.args[1].now()))
+        #print("Lift, arg0.now: " + repr(self.args[0].now()))
+        #print("Lift, arg1.now: " + repr(self.args[1].now()))
         ea = list(map(lambda a: a.now() , self.args)) # Why is this giving me a Lift0
         # for the frist argument instead of its value?
         # Why is the value a Lift0

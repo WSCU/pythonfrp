@@ -206,7 +206,7 @@ def var(init): #Actual variable signal
 def eventObserver(eName, eVal = None):
     def getEvent(ename):
 #        print "Observing " + eName
-        if ename in ename:
+        if ename in Globals.events:
 #            print "Event found:" + str(Globals.events[ename])
             return EventValue(Globals.events[ename]) if eVal is None else EventValue(eVal)
 #        print "No: " + str(noEvent)
