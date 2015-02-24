@@ -123,10 +123,10 @@ class LiftF(SFact):
         Types.checkType(obj, self, self.outType, expectedType)
         Errors.checkNumArgs(len(self.types), argsLen, obj, self)
         #list() call for pyhton 3 mapping support
-        print("LiftF: " + str(self.args))
+        #print("LiftF: " + str(self.args))
         ea = list(map(lambda x: maybeLift(x).start(), self.args))
         print("LiftF 2: " + str(ea))
-        print("LiftF 3: " + str(ea[0][0].now()))
+        #print("LiftF 3: " + str(ea[0][0].now()))
         for i in range(len(self.types)):
             Types.checkType(obj, self, ea[i][1], self.types[i])
         #Some where between here and the Lift const

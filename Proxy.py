@@ -39,13 +39,13 @@ class Proxy:
             return ObserverF(lambda x: self._get(name))
             #return self._signals[name]
     def _get(self, name):
-        try:
+        if name in self._signals:
             return self._signals[name].now()
-        except KeyError:
-            print( str(name) + " does not exist or has not been started in this Proxy: " + repr(self))
+        print( str(name) + " does not exist or has not been started in this Proxy: " + repr(self))
 
     def _initialize(self):
         for k, v in self._updateSignals.items():
+            print(k, v)
             # print("Object: " + self._name + " is initializing field: " + k + " to " + str(v))
             if k in self._types:
                 ty = self._types[k]
@@ -58,6 +58,7 @@ class Proxy:
             sig = v.start(expectedType = ty, obj = self)[0] # This is screwing up Integral
             #print "initilize signal = " + repr(sig)
             self._signals[k] = cache(sig)
+        print("----- Initialized " + str(self._name) + " with :" + repr(self._signals))
         self._updateSignals = {}
 
     def _react(self, when, what):

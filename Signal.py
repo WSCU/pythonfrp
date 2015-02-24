@@ -84,7 +84,7 @@ class StateMachine(Signal):
         self.f = f
         self.i = i
         self.time = -1
-        self.value = self.i.now()
+        #self.value = self.i.now()
         s0(self)
     def now(self):
         #Caching the value
