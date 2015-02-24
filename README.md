@@ -15,6 +15,7 @@ A simple hello world:
 
     from pythonfrp.Engine import *
     from pythonfrp.Printer import printer
+
     printer(x = integral(1, 0))
     start(tSteps = 10)
 
