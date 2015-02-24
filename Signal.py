@@ -84,7 +84,9 @@ class StateMachine(Signal):
         self.f = f
         self.i = i
         self.time = -1
-        #self.value = self.i.now()
+        # This is here to avoid brain damage,
+        # self.value is set in self.f()
+        self.value = None
         s0(self)
     def now(self):
         #Caching the value
