@@ -50,7 +50,7 @@ class Lift(Signal):
         ea = list(map(lambda a: a.now() , self.args)) # Why is this giving me a Lift0
         # for the frist argument instead of its value?
         # Why is the value a Lift0
-        print("Lift: " + str(ea))
+        #print("Lift: " + str(ea))
         #print ("eval" + self.name + " " + str(ea) + " = " + str(self.f(*ea)))
         return self.f(*ea)
 

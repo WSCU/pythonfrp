@@ -14,12 +14,9 @@ Usage
 A simple hello world:
 
     from pythonfrp.Engine import *
-    x = integral(1, 0)
-    run(steps = 5)
-    print(x)
-This will output
-
-    > 4
+    from pythonfrp.Printer import printer
+    printer(x = integral(1, 0))
+    start(tSteps = 10)
 
 Documentation and website
 ----

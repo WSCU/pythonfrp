@@ -125,7 +125,7 @@ class LiftF(SFact):
         #list() call for pyhton 3 mapping support
         #print("LiftF: " + str(self.args))
         ea = list(map(lambda x: maybeLift(x).start(), self.args))
-        print("LiftF 2: " + str(ea))
+        #print("LiftF 2: " + str(ea))
         #print("LiftF 3: " + str(ea[0][0].now()))
         for i in range(len(self.types)):
             Types.checkType(obj, self, ea[i][1], self.types[i])

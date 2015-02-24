@@ -58,7 +58,7 @@ class Proxy:
             sig = v.start(expectedType = ty, obj = self)[0] # This is screwing up Integral
             #print "initilize signal = " + repr(sig)
             self._signals[k] = cache(sig)
-        print("----- Initialized " + str(self._name) + " with :" + repr(self._signals))
+        #print("----- Initialized " + str(self._name) + " with :" + repr(self._signals))
         self._updateSignals = {}
 
     def _react(self, when, what):
