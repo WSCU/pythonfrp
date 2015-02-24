@@ -21,4 +21,4 @@ A simple hello world:
 
 Documentation and website
 ----
-All documentation and more information can be found at [http://www.reactive-engine.org](reactive-engine.org)
+All documentation and more information can be found at [reactive-engine.org](http://www.reactive-engine.org)
