@@ -11,11 +11,12 @@ def updateWorld(self):
 
 
 class World(Proxy.Proxy):
-    def __init__(self, update):
+    def __init__(self, update = updateWorld):
         Proxy.Proxy.__init__(self, "world", update, {"color": colorType, "gravity": p3Type})
         #self.color = gray # Set this in panda specific area
         self.gravity = Numerics.p3(0,0,-1)
 
+world = World()
 
 # Clear out the world.  This doesn't reset the global time or camera position.
 def resetWorld(continueFn):
