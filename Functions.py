@@ -30,7 +30,7 @@ def integralInternal(x):  # This reurns the special value Zero() at the initial 
     return StateMachineF(initIntegral, maybeLift(x), integralf)
 
 def integral(x, v0):
-    print(str(v0) + " " + repr(v0))
+    #print(str(v0) + " " + repr(v0))
     return integralInternal(x) + v0
 
 def deriv(sig, init = zero):
@@ -39,7 +39,7 @@ def deriv(sig, init = zero):
         sm.first = True
     def thunk(sm):
         i = sm.i.now()
-        print(str(i))
+        #print(str(i))
         if not sm.first:
             sm.value = (i - sm.previous) * (1/Globals.dt)
         else:
