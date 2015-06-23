@@ -273,4 +273,4 @@ def filter(fn, e):
 def atTime(t,f):
     def r(m,v):
         f()
-    react1(timeIs(t), r)
+    react(timeIs(t), r)
