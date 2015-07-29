@@ -121,8 +121,8 @@ class Proxy:
         pass
     def _exit(self):
         Globals.worldObjects = [x for x in Globals.worldObjects if x is not self]
-        self._alive = False
         self._remove()    #  This is in the subclass
+        self._alive = False
 
 def clearReactions(m):
     m._1Reactions = []
