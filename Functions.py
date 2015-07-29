@@ -188,21 +188,21 @@ localTime = localtime()
 
 def clock(step, start = 0, end = 1000000):
     def initClock(sm):
-        sm.i = 0
+        sm.count = 0
         sm.eventTime = Globals.currentTime + start
-        sm.step = step
         sm.end = Globals.currentTime + end
         sm.value = noEvent
     def clockFN(sm): # tracks and updates engine time
         # state is the previous value of the clock
+        sm.step = sm.i.now()
         if Globals.currentTime >= sm.eventTime and Globals.currentTime < sm.end:
             sm.eventTime = sm.eventTime + sm.step
-            sm.value = EventValue(sm.i)
-            sm.i = sm.i + 1
+            sm.value = EventValue(sm.count)
+            sm.count = sm.count + 1
         # add the current clock signal to the list of fast updating signals (which doesn't exist yet)
         else:
             sm.value = noEvent
-    return StateMachineF(initClock, maybeLift(0), clockFN)
+    return StateMachineF(initClock, maybeLift(step), clockFN)
 
 #make a clock signal too. Clock will control the heartbeat: make the heartbeat every second
 time = ObserverF(lambda x: Globals.currentTime, type = numType)
