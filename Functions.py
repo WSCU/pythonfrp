@@ -11,7 +11,8 @@ from . import Globals
 def now(s):
     if isinstance(s, ObserverF):
         return s.get()
-    return None  # Should be an error
+    print "Improper use of now - argument must be a var or object attribute"
+    sys.exit()
 
 def integralInternal(x):  # This reurns the special value Zero() at the initial sampling.
                           # This should always be added to something so that the Zero is never

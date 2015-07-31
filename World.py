@@ -25,4 +25,4 @@ def doNothing():
 def resetWorld(continueFn = doNothing):
     Globals.resetFlag=continueFn
     # Should make all DirectGUI stuff invisible
-    print("done")
+
