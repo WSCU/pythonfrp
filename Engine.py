@@ -2,6 +2,10 @@ from . Signal import *
 from . Functions import *
 from . import Globals
 
+# This is the basic heartbeat update function.  The arguents are the elapsed time since
+# the start of the program (in seconds) and a dictionary ef events that occur during the
+# current heartbeat.
+
 def heartbeat(ct, events):
     #print "objects " + str(len(Globals.worldObjects))
     Globals.dt = ct - Globals.currentTime
@@ -35,6 +39,7 @@ def heartbeat(ct, events):
         Globals.resetFlag()
         Globals.resetFlag = None
 
+# This initializes the reactive engine - usually called at time 0
 
 def initialize(ct = 0):
     """
@@ -45,16 +50,6 @@ def initialize(ct = 0):
     Globals.thunks = []
     Globals.currentTime = ct
     Globals.newModels = []
-    Globals.worldObjects = {}
+    Globals.worldObjects = []
     Globals.events = []
 
-
-def engine(ct, tSteps):
-    Globals.currentTime = ct
-    while ct < tSteps:
-        heartbeat(ct, None)
-        ct += 1
-
-
-def start(ct = 0, tSteps = 50):
-    engine(0, tSteps)
