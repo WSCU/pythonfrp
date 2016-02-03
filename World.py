@@ -19,7 +19,7 @@ def updateWorld(self):
     for f in world._updaters:
         f(self)
 
-def resetWorld(continueFn = doNothing):
+def resetWorld(continueFn = lambda: None):
     Globals.resetFlag=continueFn
     # Should make all DirectGUI stuff invisible
 
