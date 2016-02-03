@@ -1,6 +1,7 @@
 from . Signal import *
 from . Functions import *
 from . import Globals
+from . import World 
 
 # This is the basic heartbeat update function.  The arguents are the elapsed time since
 # the start of the program (in seconds) and a dictionary ef events that occur during the

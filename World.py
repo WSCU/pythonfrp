@@ -3,24 +3,21 @@ from . import Globals
 from . Types import *
 from . import Numerics
 
-def updateWorld(self):
-    pass
-    #c = self._get("color")
-    #base.setBackgroundColor(c.r, c.g, c.b) # What is base?
-    #Maybe set this in panda specific aswell?
-
-
 class World(Proxy.Proxy):
     def __init__(self, update = updateWorld):
-        Proxy.Proxy.__init__(self, "world", update, {"color": colorType, "gravity": p3Type})
-        #self.color = gray # Set this in panda specific area
-        self.gravity = Numerics.p3(0,0,-1)
+        Proxy.Proxy.__init__(self, "world", update, {})
 
 world = World()
+world._updaters = []
 
-# Clear out the world.  This doesn't reset the global time or camera position.
-def doNothing():
-    pass
+def addSignal(name,default,type,update): #Add a signal to a given object, paired with a specified updater
+    world.__setattr__(name,default)
+    world._types[name]= type
+    world._updaters.add(update)
+    
+def updateWorld(self):
+    for f in world._updaters:
+        f(self)
 
 def resetWorld(continueFn = doNothing):
     Globals.resetFlag=continueFn
