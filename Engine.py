@@ -1,7 +1,11 @@
 from . Signal import *
 from . Functions import *
 from . import Globals
-from . import World 
+from . import World
+from . import Proxy
+from Factory import eventObserver
+# Some of these imports are used as a pass through, with the idea being a developer only imports Engine
+
 
 # This is the basic heartbeat update function.  The arguents are the elapsed time since
 # the start of the program (in seconds) and a dictionary ef events that occur during the
@@ -44,7 +48,7 @@ def heartbeat(ct, events):
 
 def initialize(ct = 0):
     """
-    This funciton needs some work.
+    This function needs some work.
     will need to check the proxy module to find the right name for this initialize method
     make an initialize method that clears out all the variables and resets the clock
     """
@@ -53,4 +57,12 @@ def initialize(ct = 0):
     Globals.newModels = []
     Globals.worldObjects = []
     Globals.events = []
+
+# Functions that are exported for ease of use: These exist inside the engine, but aren't so easy to find and may
+# need to be used by developers
+
+def addEventObserver(eName): #Add an event Observer
+    eventObserver(eName)
+
+
 

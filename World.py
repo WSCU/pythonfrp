@@ -15,7 +15,7 @@ class World(Proxy.Proxy):
         # Create a world labeled 'world' with an updater that calls each signal's custom update
 
 
-world = World()
+world = World() # Instance of World class
 world._updaters = []
 
 
