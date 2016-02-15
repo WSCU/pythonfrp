@@ -1,9 +1,12 @@
-from . Signal import *
-from . Functions import *
-from . import Globals
-from . import World
-from . import Proxy
-from Factory import eventObserver
+from Signal import *
+from Functions import *
+from Globals import *
+from Factory import *
+from World import *
+import Proxy as Proxy # Not sure why this needs to be like this?
+from StaticNumerics import *
+from Numerics import *
+
 # Some of these imports are used as a pass through, with the idea being a developer only imports Engine
 
 
@@ -59,10 +62,10 @@ def initialize(ct = 0):
     Globals.events = []
 
 # Functions that are exported for ease of use: These exist inside the engine, but aren't so easy to find and may
-# need to be used by developers
+# need to be used by devs
 
-def addEventObserver(eName): #Add an event Observer
-    eventObserver(eName)
+
+
 
 
 
