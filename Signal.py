@@ -1,6 +1,6 @@
-from . import Globals
-from . import Errors
-from . Types import signalType, eventValueType
+from pythonfrp import Globals
+from pythonfrp import Errors
+from pythonfrp.Types import signalType, eventValueType
 
 class EventValue:
     def __init__(self, value = None):
@@ -8,7 +8,7 @@ class EventValue:
         self.value = value
     def __add__(self, e):
         Errors.checkEvent(e, "event addition")
- #       print "Event merge: " + str(self) + " " + str(e)
+ #       print("Event merge: " + str(self) + " " + str(e))
         if self.value is None:
             return e
         else:
@@ -51,7 +51,7 @@ class Lift(Signal):
         # for the frist argument instead of its value?
         # Why is the value a Lift0
         #print("Lift: " + str(ea))
-        #print ("eval" + self.name + " " + str(ea) + " = " + str(self.f(*ea)))
+        #print("eval" + self.name + " " + str(ea) + " = " + str(self.f(*ea)))
         return self.f(*ea)
 
 # Cached Signal that inherits Signal
@@ -61,7 +61,7 @@ class CachedSignal(Signal):
         Signal.__init__(self)
         self.cachedValue = 0
         self.time = -1
-        #print "cache " + repr(s)
+        #print("cache " + repr(s))
         self.s = s
 #        if not isinstance(s, Lift):  # Could also be an observer
 #            die()
@@ -79,7 +79,7 @@ def cache(s):
 # A State Machine signal
 class StateMachine(Signal):
     def __init__(self, s0, i, f):
-        #print "s0 = " + repr(s0) + " i = " + repr(i) + " f = " + repr(f)
+        #print("s0 = " + repr(s0) + " i = " + repr(i) + " f = " + repr(f))
         Signal.__init__(self)
         self.f = f
         self.i = i

@@ -1,7 +1,7 @@
-from . import Interp
-from . StaticNumerics import *
-from . Factory import *
-from . Types import *
+from pythonfrp import Interp
+from pythonfrp.StaticNumerics import *
+from pythonfrp.Factory import *
+from pythonfrp.Types import *
 import math
 
 pi       = math.pi

@@ -9,9 +9,9 @@
 import math
 import random
 import sys
-from . import Factory
-from . import Errors
-from . Types import *
+from pythonfrp import Factory
+from pythonfrp import Errors
+from pythonfrp.Types import *
 
 # This is a where we park signal functions.
 
@@ -213,7 +213,7 @@ class SP3:
             return zero
         if isinstance(y, type(1)) or isinstance(y,type(1.0)):
             return scaleP3(y, self)
-        #print getPtype(y)
+        #print(getPtype(y))
         if getPtype(y).includes(numType):
             return scaleP3(y, self)
         Errors.errorOnStaticTypes("Mul", "SP3", y)
@@ -222,7 +222,7 @@ class SP3:
             return zero.rmul(self, y)
         if isinstance(y, type(1)) or isinstance(y, type(1.5)):
             return scaleP3(y, self)
-        #print getPtype(y)
+        #print(getPtype(y))
         if getPtype(y).includes(numType):
             return scaleP3(y, self)
         Errors.errorOnStaticTypes("Mul", "SP3", y)

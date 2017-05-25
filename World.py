@@ -1,7 +1,7 @@
-from . import Proxy
-from . import Globals
-from .Types import *
-from . import Numerics
+from pythonfrp import Proxy
+from pythonfrp import Globals
+from pythonfrp.Types import *
+from pythonfrp import Numerics
 
 
 def updateWorld(self):

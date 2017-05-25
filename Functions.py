@@ -1,17 +1,17 @@
 #Collection of useful and necessary functions used in the Reactive Engine.
-from . Signal import *
-from . Factory import *
-from . StaticNumerics import zero
-from . Errors import *
-from . Types import *
-from . import World
-from . import Proxy
-from . import Globals
+from pythonfrp.Signal import *
+from pythonfrp.Factory import *
+from pythonfrp.StaticNumerics import zero
+from pythonfrp.Errors import *
+from pythonfrp.Types import *
+from pythonfrp import World
+from pythonfrp import Proxy
+from pythonfrp import Globals
 
 def now(s):
     if isinstance(s, ObserverF):
         return s.get()
-    print "Improper use of now - argument must be a var or object attribute"
+    print("Improper use of now - argument must be a var or object attribute")
     sys.exit()
 
 def integralInternal(x):  # This reurns the special value Zero() at the initial sampling.
@@ -22,9 +22,9 @@ def integralInternal(x):  # This reurns the special value Zero() at the initial 
         s.value = zero
     def thunk(sm):
         i = sm.i.now()
-        #print "integral "+ str(sm.state) + " " + str(i) + " " + str(Globals.dt)
+        #print("integral "+ str(sm.state) + " " + str(i) + " " + str(Globals.dt))
         sm.value = sm.value + i * Globals.dt
-        #print sm.state
+        #print(sm.state)
     def integralf(sm):
         Globals.thunks.append(lambda: thunk(sm))
         return sm.value
@@ -99,7 +99,7 @@ def getCollection(m):
             return Globals.collections[m]
         except KeyError:
             # There may not be any model in a collection yet
-            # print ("No collection with the name: " + m + " returning empty list")
+            # print("No collection with the name: " + m + " returning empty list")
             return []
     else:
         return [m]

@@ -3,7 +3,7 @@ A proxy object that prints the name and values of all its signals.
 Mostly used for testing.
 """
 
-from . Proxy import Proxy
+from pythonfrp.Proxy import Proxy
 
 class Printer(Proxy):
     def __init__(self, name, args):
@@ -14,7 +14,7 @@ class Printer(Proxy):
 
 def printupdate(proxy):
     for k, v in proxy._signals.items():
-        print (k + ": " + str(v.now()))
+        print(k + ": " + str(v.now()))
 
 
 def printer(name = "printing object", **kwargs):

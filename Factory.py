@@ -1,7 +1,7 @@
-from . import Errors
-from . import Globals
-from . Signal import *
-from . import Types
+from pythonfrp import Errors
+from pythonfrp import Globals
+from pythonfrp.Signal import *
+from pythonfrp import Types
 
 def maybeLift(x):
     t = type(x)
@@ -18,24 +18,24 @@ def maybeLift(x):
     t = x._type
 
     if t is Types.signalFactoryType:
-        #print "if this is not happening we are in trouble: "+str(t)+" and: " +str(x.name)
+        #print("if this is not happening we are in trouble: "+str(t)+" and: " +str(x.name))
         return x
     if t is Types.p3Type:
         return Lift0F(x, t)
-    #print "Lifting: "+str(x)+" :: " +str(t)
+    #print("Lifting: "+str(x)+" :: " +str(t))
     return Lift0F(x,t)
     #return x
 def lift(name, f, types = [], outType = Types.anyType):
     def fn(*args):
-        #print str(len(types)) + " " + str(len(args))
+        #print(str(len(types)) + " " + str(len(args)))
         Errors.checkNumArgs(len(types), len(args), "ProxyObject", name)
         for arg in args:
-            # print("lift: " + str(arg))
+            #(print("lift: " + str(arg)))
             if isinstance(arg, SFact):
                 return LiftF(name,f,args,types = types, outType = outType)
         if len(types) is not 0:
             for i in range(len(args)):
-                #print "checking " + repr(args[i]) + ' ' + repr(types[i])
+                #print("checking " + repr(args[i]) + ' ' + repr(types[i]))
                 Types.checkType("ProxyObject", name, args[i], types[i])
         return f(*args)
     return fn
@@ -161,9 +161,9 @@ class StateMachineF(SFact):
         self.name = "State Machine Factory"
         self.f = f
     def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
-        #print "initilizing state Machine " + repr(self.i)
+        #print("initilizing state Machine " + repr(self.i))
         input = self.i.start(expectedType = Types.anyType)[0]
-        #print "state machine input: " + repr(input)
+        #print("state machine input: " + repr(input))
         return StateMachine(self.state, input, self.f), self.outType
 
 #Creates a Observer Factory
@@ -174,7 +174,7 @@ class ObserverF(SFact):
         self.outType = type
         self.name = "ObserverF"
     def start(self, expectedType = Types.anyType, obj = "ProxyObject"):
-       # print "starting observer"
+       # print("starting observer")
         ro =  Observer(self.f)
         ro.startTime = Globals.currentTime
         return ro , self.outType
@@ -206,10 +206,10 @@ def var(init): #Actual variable signal
 
 def eventObserver(eName, eVal = None):
     def getEvent(ename):
-#        print "Observing " + eName
+#        print("Observing " + eName)
         if ename in Globals.events:
-#            print "Event found:" + str(Globals.events[ename])
+#            print("Event found:" + str(Globals.events[ename]))
             return EventValue(Globals.events[ename]) if eVal is None else EventValue(eVal)
-#        print "No: " + str(noEvent)
+#        print("No: " + str(noEvent))
         return noEvent
     return ObserverF(lambda x: getEvent(eName))

@@ -1,5 +1,5 @@
-from . Signal import *
-from . Types import *
+from pythonfrp.Signal import *
+from pythonfrp.Types import *
 import math
 
 """
@@ -344,6 +344,6 @@ def interpolateStatic(t, i):
     if t >= i1.dur:
         return i1.last
     result = i1.interp(t)
-    #print result
+    #print(result)
     return result
 

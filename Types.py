@@ -4,7 +4,7 @@ This handles the typing of signal functions
 Composite types such as P2, P3, and HPR are serialized as numbers separated by commas.
 This parses those numbers.
 """
-from . import Errors
+from pythonfrp import Errors
 from types import *
 
 # Every built-in type has a python-defined type
@@ -84,7 +84,7 @@ def getPtype(v):
 
 def checkType(obj, attr, value, expected):
     got = getPtype(value)
-    #print str(expected.includes(got)) + " " + str(got) + " " + str(expected)
+    #print(str(expected.includes(got)) + " " + str(got) + " " + str(expected))
     if got.includes(expected):
         return
     if hasattr(obj, '_name'):

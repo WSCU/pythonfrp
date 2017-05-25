@@ -16,7 +16,7 @@ def errorOnStaticTypes(func, correct, y):
     sys.exit()
 
 def checkNumArgs(expected, got, obj, attr):
-    #print str(expected) + " " + str(got)
+    #print(str(expected) + " " + str(got))
     if expected is 0 or expected is got:
         return
     else:

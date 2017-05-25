@@ -1,7 +1,7 @@
-from . import Globals
-from . Factory import *
-from . Types import proxyType, anyType
-from . import Errors
+from pythonfrp import Globals
+from pythonfrp.Factory import *
+from pythonfrp.Types import proxyType, anyType
+from pythonfrp import Errors
 
 class Reaction:
     def __init__(self, fn, m, v):
@@ -56,7 +56,7 @@ class Proxy:
             #print(str(self._signals))
             #print(str(v))
             sig = v.start(expectedType = ty, obj = self)[0] # This is screwing up Integral
-            #print "initilize signal = " + repr(sig)
+            #print("initilize signal = " + repr(sig))
             self._signals[k] = cache(sig)
         #print("----- Initialized " + str(self._name) + " with :" + repr(self._signals))
         self._updateSignals = {}
@@ -95,14 +95,14 @@ class Proxy:
                 print("Multiple one time reactions in a heartbeat in object " + self._name)
 
             #Evaluate recurring reactions
-            # print "Number of reactions in " + self._name + " " + str(len(self._gReactions))
+            # print("Number of reactions in " + self._name + " " + str(len(self._gReactions)))
             for d in self._gReactions:
                 temp = d[0].now()
                 Errors.checkEvent(temp, "recurring reaction in " + self._name)
                 #print("Object: " + str(self) + " is updating: " + str(a[0]))
                 if temp.occurs():
                     #print("    " + repr(temp) + " is being added to thunks")
-                    #print "Thunks" + str(thunks) + " " + str(d)
+                    #print("Thunks" + str(thunks) + " " + str(d))
                     thunks.append(Reaction(d[1], self, temp.value))
 
             #push to the actuall object
@@ -110,8 +110,8 @@ class Proxy:
             return thunks
 
     def __str__(self):
-        #print (self._signals)
-        #print (self._updateSignals)
+        #print(self._signals)
+        #print(self._updateSignals)
         return self._name
 
     def __repr__(self):

@@ -1,11 +1,11 @@
-from Signal import *
-from Functions import *
-from Globals import *
-from Factory import *
-from World import *
-import Proxy as Proxy # Not sure why this needs to be like this?
-from StaticNumerics import *
-from Numerics import *
+from pythonfrp.Signal import *
+from pythonfrp.Functions import *
+from pythonfrp.Globals import *
+from pythonfrp.Factory import *
+from pythonfrp.World import *
+import pythonfrp.Proxy as Proxy # Not sure why this needs to be like this?
+from pythonfrp.StaticNumerics import *
+from pythonfrp.Numerics import *
 
 # Some of these imports are used as a pass through, with the idea being a developer only imports Engine
 
@@ -15,16 +15,16 @@ from Numerics import *
 # current heartbeat.
 
 def heartbeat(ct, events):
-    #print "objects " + str(len(Globals.worldObjects))
+    #print("objects " + str(len(Globals.worldObjects)))
     Globals.dt = ct - Globals.currentTime
     Globals.currentTime = ct
     Globals.events = events
     Globals.newEvents = {}
     Globals.thunks = []
 
-    #print "time steps: "+repr(ct)
+    #print("time steps: "+repr(ct))
     #for event in events:
-        #print "Events: "+repr(event)
+        #print("Events: "+repr(event))
     reactions = []
     for worldObject in Globals.worldObjects:
         #print("Updating object: " + repr(worldObject))
