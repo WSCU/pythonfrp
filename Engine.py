@@ -26,6 +26,11 @@ def heartbeat(ct, events):
     #for event in events:
         #print("Events: "+repr(event))
     reactions = []
+    if Globals.resetFlag is not None:
+        for m in Globals.worldObjects:
+            exit(m)
+        Globals.resetFlag()
+        Globals.resetFlag = None
     for worldObject in Globals.worldObjects:
         #print("Updating object: " + repr(worldObject))
         #print(repr(worldObject))
@@ -41,11 +46,7 @@ def heartbeat(ct, events):
     for obj in Globals.worldObjects:
         #print("Initializing object: " + repr(obj))
         obj._initialize()
-    if Globals.resetFlag is not None:
-        for m in Globals.worldObjects:
-            exit(m)
-        Globals.resetFlag()
-        Globals.resetFlag = None
+
 
 # This initializes the reactive engine - usually called at time 0
 
