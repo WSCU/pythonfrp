@@ -36,6 +36,7 @@ def heartbeat(ct, events):
 #        World.world = World(name="world2")
 #        world._name = "world2"
         world._alive = True
+        world._gReactions = []
         Globals.newObjects.append(world)
         #Call the init FN thats passed into resetWorld
 #        Globals.initFn()
