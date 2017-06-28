@@ -21,6 +21,7 @@ sl = {} # What is this?
 eventListenerCache = {}
 
 resetFlag = None
+initFn = None # Called with the rest flag. Allows for signal init for panda world
 # Used to identify signals
 
 nextSignalRef = 0

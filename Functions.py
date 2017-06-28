@@ -140,6 +140,7 @@ def react(m, when, what = None):
     if type(m) is str:
         saveForCollection("react", m, when, what)
     coll = getCollection(m)
+#    print("React collections in world: " + str(coll))
     for proxy in coll:
         proxy._react(when, what)
 
