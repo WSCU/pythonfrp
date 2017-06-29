@@ -97,3 +97,12 @@ p3Type.decoder = lambda s: decodeNums(s, p3)
 p2Type.encoder = lambda p: encodeNums(p.x, p.y)
 p2Type.decoder = lambda s: decodeNums(s, p2)
 
+def cross(a, b):
+    a1 = getX(a)
+    a2 = getY(a)
+    a3 = getZ(a)
+    b1 = getX(b)
+    b2 = getY(b)
+    b3 = getZ(b)
+    return p3(a2*b3 - a3*b2,a3*b1-a1*b3,a1*b2-a2*b1)
+

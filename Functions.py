@@ -24,14 +24,14 @@ def integralInternal(x):  # This reurns the special value Zero() at the initial 
         i = sm.i.now()
         #print("integral "+ str(sm.state) + " " + str(i) + " " + str(Globals.dt))
         sm.value = sm.value + i * Globals.dt
+        #print(sm.value)
         #print(sm.state)
     def integralf(sm):
         Globals.thunks.append(lambda: thunk(sm))
         return sm.value
     return StateMachineF(initIntegral, maybeLift(x), integralf)
 
-def integral(x, v0):
-    #print(str(v0) + " " + repr(v0))
+def integral(x, v0):    
     return integralInternal(x) + v0
 
 def deriv(sig, init = zero):
@@ -275,3 +275,5 @@ def atTime(t,f):
     def r(m,v):
         f()
     react(timeIs(t), r)
+
+
