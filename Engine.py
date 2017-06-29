@@ -15,6 +15,7 @@ from pythonfrp.Numerics import *
 # current heartbeat.
 
 def heartbeat(ct, events):
+#    print("Beat")
     #print("objects " + str(len(Globals.worldObjects)))
     Globals.dt = ct - Globals.currentTime
     Globals.currentTime = ct
@@ -22,30 +23,48 @@ def heartbeat(ct, events):
     Globals.newEvents = {}
     Globals.thunks = []
 
-    #print("time steps: "+repr(ct))
-    #for event in events:
-        #print("Events: "+repr(event))
+#    print("time steps: "+repr(ct))
+#    for event in events:
+#        print("Events: "+repr(event))
     reactions = []
+    if Globals.resetFlag is not None:
+        for m in Globals.worldObjects:
+#            if not type(m) is World:
+#            print ("Type of m is: " + str(type(m)))
+            exit(m)
+        # Reset the world object
+#        World.world = World(name="world2")
+#        world._name = "world2"
+        world._alive = True
+        world._gReactions = []
+        Globals.newObjects.append(world)
+        #Call the init FN thats passed into resetWorld
+#        Globals.initFn()
+#        Globals.initFn = None
+        # Call the rest FN thats passed into resetWorld
+        Globals.resetFlag()
+        Globals.resetFlag = None
+        
     for worldObject in Globals.worldObjects:
-        #print("Updating object: " + repr(worldObject))
-        #print(repr(worldObject))
+#        print("Updating object: " + repr(worldObject))
+#        print(repr(worldObject))
+#        print(repr(reactions))
+#        print(worldObject._update)
         reactions.extend(worldObject._update())
     for thunk in Globals.thunks:
         thunk()
     for reaction in reactions:
         reaction.react()
+#        print ("Engine each reaction: " + str(reaction))
+#    print(len(reactions))
     for obj in Globals.newObjects:
-        #print("Adding object: " + repr(obj))
+#        print("Adding object: " + repr(obj))
         Globals.worldObjects.append(obj)
     Globals.newObjects = []
     for obj in Globals.worldObjects:
-        #print("Initializing object: " + repr(obj))
+#        print("Initializing object: " + repr(obj))
         obj._initialize()
-    if Globals.resetFlag is not None:
-        for m in Globals.worldObjects:
-            exit(m)
-        Globals.resetFlag()
-        Globals.resetFlag = None
+
 
 # This initializes the reactive engine - usually called at time 0
 

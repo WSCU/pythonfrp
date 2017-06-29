@@ -75,14 +75,15 @@ class Proxy:
 
     def _update(self):
         if self._alive:
+#            print("Object: " + str(self) + " signals: " + str(self._signals))
             for k, v in self._signals.items():
-                #print("Objects: " + str(self) + " is updating: " + k)
+#                print("Objects: " + str(self) + " is updating: " + k)
                 v.now()
             thunks = []
 
             #Evaluate one time reactions:
             for c in self._1Reactions:
-                #print("Object: " + str(self) + " is updating: " + str(a[0]))
+#                print("Object: " + str(self) + " is updating: " + str(c[0]))
                 temp = c[0].now()
                 Errors.checkEvent(temp, "One time reaction in " + self._name)
                 if temp.occurs():
@@ -99,7 +100,7 @@ class Proxy:
             for d in self._gReactions:
                 temp = d[0].now()
                 Errors.checkEvent(temp, "recurring reaction in " + self._name)
-                #print("Object: " + str(self) + " is updating: " + str(a[0]))
+#                print("Object: " + str(self) + " is updating: " + str(d[0]))
                 if temp.occurs():
                     #print("    " + repr(temp) + " is being added to thunks")
                     #print("Thunks" + str(thunks) + " " + str(d))
