@@ -89,7 +89,7 @@ class Proxy:
                 if temp.occurs():
                     #print("    " + str(temp) + " is being added to thunks")
                     thunks.append(Reaction(c[1], self, temp.value))
-                    self._1Reactions = []
+                    self._1Reactions.remove(c)
                     break
 
             if (len(thunks) >= 2):
